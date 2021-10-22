@@ -12,9 +12,7 @@ import androidx.viewbinding.ViewBinding
  * Created by aldhykohar on 10/22/2021.
  */
 
-typealias Inflate<T> = (LayoutInflater, ViewGroup, Boolean) -> T
-
-abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) : Fragment() {
+abstract class BaseFragment<VB : ViewBinding>() : Fragment() {
 
     private var _binding: VB? = null
     val binding get() = _binding!!
@@ -24,9 +22,11 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflate.invoke(inflater, container!!, false)
+        _binding = getViewBinding()
         return binding.root
     }
+
+    abstract fun getViewBinding(): VB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +34,9 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) 
         initObserver()
     }
 
-    abstract fun initObserver()
-
     abstract fun initView()
+
+    abstract fun initObserver()
 
     override fun onDestroyView() {
         super.onDestroyView()

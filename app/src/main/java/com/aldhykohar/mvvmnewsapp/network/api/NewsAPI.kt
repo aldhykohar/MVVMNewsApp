@@ -24,7 +24,7 @@ interface NewsAPI {
 
     @GET("/v2/everything")
     suspend fun searchForNews(
-        @Query("1")
+        @Query("q")
         searchQuery: String,
         @Query("page")
         pageNumber: Int = 1,

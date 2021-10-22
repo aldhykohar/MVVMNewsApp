@@ -14,10 +14,10 @@ import com.aldhykohar.mvvmnewsapp.utils.Resource
  * Created by aldhykohar on 10/22/2021.
  */
 class BreakingNewsFragment :
-    BaseFragment<FragmentBreakingNewsBinding>(FragmentBreakingNewsBinding::inflate) {
+    BaseFragment<FragmentBreakingNewsBinding>() {
 
-    lateinit var viewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    private lateinit var viewModel: NewsViewModel
+    private lateinit var newsAdapter: NewsAdapter
 
     override fun initView() {
         viewModel = (activity as NewsActivity).viewModel
@@ -54,4 +54,6 @@ class BreakingNewsFragment :
     private fun initProgressBar(state: Boolean) {
         binding.paginationProgressBar.visibility = if (state) View.VISIBLE else View.INVISIBLE
     }
+
+    override fun getViewBinding() = FragmentBreakingNewsBinding.inflate(layoutInflater)
 }
