@@ -1,7 +1,10 @@
 package com.aldhykohar.mvvmnewsapp.ui.fragment
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
+import com.aldhykohar.mvvmnewsapp.R
 import com.aldhykohar.mvvmnewsapp.base.BaseFragment
 import com.aldhykohar.mvvmnewsapp.databinding.FragmentBreakingNewsBinding
 import com.aldhykohar.mvvmnewsapp.ui.NewsActivity
@@ -26,6 +29,19 @@ class BreakingNewsFragment :
         binding.rvBreakingNews.apply {
             setHasFixedSize(true)
             adapter = newsAdapter
+        }
+
+        initClick()
+    }
+
+    private fun initClick() {
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment_to_articlesFragment, bundle
+            )
         }
     }
 

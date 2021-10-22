@@ -1,8 +1,11 @@
 package com.aldhykohar.mvvmnewsapp.ui.fragment
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
+import com.aldhykohar.mvvmnewsapp.R
 import com.aldhykohar.mvvmnewsapp.base.BaseFragment
 import com.aldhykohar.mvvmnewsapp.databinding.FragmentSearchNewsBinding
 import com.aldhykohar.mvvmnewsapp.ui.NewsActivity
@@ -34,20 +37,9 @@ class SearchNewsFragment :
                 setHasFixedSize(true)
                 adapter = newsAdapter
             }
-
-            var job: Job? = null
-            etSearch.addTextChangedListener { editable ->
-                job?.cancel()
-                job = MainScope().launch {
-                    delay(SEARCH_NEWS_TIME_DELAY)
-                    editable?.let {
-                        if (editable.toString().isNotEmpty()) {
-                            viewModel.searchNews(editable.toString())
-                        }
-                    }
-                }
-            }
         }
+        initListener()
+        initClick()
     }
 
     override fun initObserver() {
@@ -70,6 +62,34 @@ class SearchNewsFragment :
                 }
             }
         })
+    }
+
+    private fun initListener() {
+        with(binding) {
+            var job: Job? = null
+            etSearch.addTextChangedListener { editable ->
+                job?.cancel()
+                job = MainScope().launch {
+                    delay(SEARCH_NEWS_TIME_DELAY)
+                    editable?.let {
+                        if (editable.toString().isNotEmpty()) {
+                            viewModel.searchNews(editable.toString())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initClick() {
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment_to_articlesFragment, bundle
+            )
+        }
     }
 
     private fun initProgressBar(state: Boolean) {
