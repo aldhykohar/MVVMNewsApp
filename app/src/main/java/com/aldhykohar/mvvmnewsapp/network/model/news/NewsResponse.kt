@@ -1,51 +1,57 @@
 package com.aldhykohar.mvvmnewsapp.network.model.news
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class NewsResponse(
 
-	@field:SerializedName("totalResults")
-	val totalResults: Int,
+    @field:SerializedName("totalResults")
+    val totalResults: Int,
 
-	@field:SerializedName("articles")
-	val articles: List<ArticlesItem>,
+    @field:SerializedName("articles")
+    val articles: List<Articles>,
 
-	@field:SerializedName("status")
-	val status: String
+    @field:SerializedName("status")
+    val status: String
 )
 
-data class ArticlesItem(
+@Entity(tableName = "articles")
+data class Articles(
 
-	@field:SerializedName("publishedAt")
-	val publishedAt: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null,
 
-	@field:SerializedName("author")
-	val author: String,
+    @field:SerializedName("publishedAt")
+    val publishedAt: String,
 
-	@field:SerializedName("urlToImage")
-	val urlToImage: String,
+    @field:SerializedName("author")
+    val author: String,
 
-	@field:SerializedName("description")
-	val description: String,
+    @field:SerializedName("urlToImage")
+    val urlToImage: String,
 
-	@field:SerializedName("source")
-	val source: Source,
+    @field:SerializedName("description")
+    val description: String,
 
-	@field:SerializedName("title")
-	val title: String,
+    @field:SerializedName("source")
+    val source: Source,
 
-	@field:SerializedName("url")
-	val url: String,
+    @field:SerializedName("title")
+    val title: String,
 
-	@field:SerializedName("content")
-	val content: String
+    @field:SerializedName("url")
+    val url: String,
+
+    @field:SerializedName("content")
+    val content: String
 )
 
 data class Source(
 
-	@field:SerializedName("name")
-	val name: String,
+    @field:SerializedName("name")
+    val name: String,
 
-	@field:SerializedName("id")
-	val id: Any
+    @field:SerializedName("id")
+    val id: Any
 )
