@@ -15,6 +15,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
+        initView()
+        initObserver()
     }
 
     override fun onSupportNavigateUp(): Boolean {
