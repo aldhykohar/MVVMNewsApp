@@ -1,10 +1,10 @@
 package com.aldhykohar.mvvmnewsapp.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aldhykohar.mvvmnewsapp.data.repository.NewsRepository
+import com.aldhykohar.mvvmnewsapp.network.model.news.Articles
 import com.aldhykohar.mvvmnewsapp.network.model.news.NewsResponse
 import com.aldhykohar.mvvmnewsapp.utils.Resource
 import kotlinx.coroutines.launch
@@ -56,5 +56,15 @@ class NewsViewModel(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun saveArticle(articles: Articles) = viewModelScope.launch {
+        newsRepository.upsert(articles)
+    }
+
+    fun getSavedNews() = newsRepository.getSavedNews()
+
+    fun deleteArticle(articles: Articles) = viewModelScope.launch {
+        newsRepository.deleteArticle(articles)
     }
 }

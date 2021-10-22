@@ -10,6 +10,7 @@ import com.aldhykohar.mvvmnewsapp.base.BaseFragment
 import com.aldhykohar.mvvmnewsapp.databinding.FragmentArticleBinding
 import com.aldhykohar.mvvmnewsapp.ui.NewsActivity
 import com.aldhykohar.mvvmnewsapp.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 /**
@@ -26,9 +27,16 @@ class ArticlesFragment : BaseFragment<FragmentArticleBinding>() {
     override fun initView() {
         viewModel = (activity as NewsActivity).viewModel
         val article = args.article
-        binding.webView.apply {
-            webViewClient = WebViewClient()
-            loadUrl(article.url)
+        with(binding) {
+            webView.apply {
+                webViewClient = WebViewClient()
+                loadUrl(article.url)
+            }
+
+            fab.setOnClickListener {
+                viewModel.saveArticle(article)
+                Snackbar.make(view!!, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
