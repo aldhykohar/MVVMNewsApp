@@ -11,7 +11,7 @@ import com.aldhykohar.mvvmnewsapp.network.model.news.Articles
 class NewsRepository(val db: ArticleDatabase) {
 
     suspend fun getBreakingNews(countryCode: String, pageNumber: Int) =
-        RetrofitInstance.api.getBreakingNews()
+        RetrofitInstance.api.getBreakingNews(countryCode, pageNumber)
 
     suspend fun searchNews(searchQuery: String, pageNumber: Int) =
         RetrofitInstance.api.searchForNews(searchQuery, pageNumber)
