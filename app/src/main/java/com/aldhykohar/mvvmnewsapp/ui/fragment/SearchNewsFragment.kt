@@ -1,9 +1,9 @@
 package com.aldhykohar.mvvmnewsapp.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,7 +65,8 @@ class SearchNewsFragment :
                 is Resource.Error -> {
                     initProgressBar(false)
                     it.message?.let { message ->
-                        Log.e("TAG", "an error occurred:$message ")
+                        Toast.makeText(activity, "An error occurred: $message", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
                 is Resource.Loading -> {

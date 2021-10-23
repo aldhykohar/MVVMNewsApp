@@ -15,7 +15,7 @@ class NewsActivity : BaseActivity<ActivityNewsBinding>() {
 
     val viewModel by lazy {
         val newsRepository = NewsRepository(ArticleDatabase(this))
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
     }
 
